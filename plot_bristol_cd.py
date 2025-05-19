@@ -180,7 +180,7 @@ def plot_cd_spectra(cd_data_df, sample_name,
         })
 
     # --- Plotting ---
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(5,4))
     sns.set_style("ticks") # or "whitegrid"
 
     # Plot the smoothed primary data
@@ -227,7 +227,7 @@ def plot_cd_spectra(cd_data_df, sample_name,
         plt.savefig(os.path.join(save_dir, f"{filename_base}.{ext}"), dpi=300, bbox_inches="tight")
 
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
 
 def plot_melting_curve(melt_data_df, sample_name, wavelength_nm=222, # Common wavelength for melts
@@ -279,7 +279,7 @@ def plot_melting_curve(melt_data_df, sample_name, wavelength_nm=222, # Common wa
 
 
     # Set up the plot
-    plt.figure(figsize=(7, 6)) # Slightly different aspect ratio might be good
+    plt.figure(figsize=(5,4)) # Slightly different aspect ratio might be good
     sns.set_style("ticks")
 
     # Plot the primary melting curve (Heating)
@@ -294,7 +294,7 @@ def plot_melting_curve(melt_data_df, sample_name, wavelength_nm=222, # Common wa
 
 
     # Customize the plot
-    full_title = f"{title} @ {wavelength_nm} nm\n{sample_name}"
+    full_title = f"{title} at {wavelength_nm} nm\n{sample_name}"
     plt.title(full_title, fontsize=14)
     plt.xlabel('Temperature (°C)', fontsize=12)
     plt.ylabel("Mean Residue Ellipticity (deg·cm²·dmol⁻¹)", fontsize=12)
@@ -321,7 +321,7 @@ def plot_melting_curve(melt_data_df, sample_name, wavelength_nm=222, # Common wa
     for ext in ["png", "svg"]:
         plt.savefig(os.path.join(save_dir, f"{filename_base}.{ext}"), dpi=300, bbox_inches="tight")
 
-    plt.show()
+    # plt.show()
 
 
 
@@ -409,11 +409,11 @@ if __name__ == "__main__":
 
 
     if "A9_Subtracted" in parsed_data:
-        plot_cd_spectra(parsed_data["A9_Subtracted"]['data'], sample_name="Sample A9 (Blank Subtracted)",
+        plot_cd_spectra(parsed_data["A9_Subtracted"]['data'], sample_name="Sample A9",
                 protein_concentration_uM=params_df.loc["A9", "cd_sample_molar_conc"]*10**6, num_residues=params_df.loc["A9", "sequence_length"], path_length_mm=params_df.loc["A9", "cd_path_length_mm"], save_dir=output_dir,**params)
 
     if "A12_Subtracted" in parsed_data:
-         plot_cd_spectra(parsed_data["A12_Subtracted"]['data'], sample_name="Sample A12 (Blank Subtracted)",
+         plot_cd_spectra(parsed_data["A12_Subtracted"]['data'], sample_name="Sample A12",
                         protein_concentration_uM=params_df.loc["A12", "cd_sample_molar_conc"]*10**6, num_residues=params_df.loc["A12", "sequence_length"], path_length_mm=params_df.loc["A12", "cd_path_length_mm"], save_dir=output_dir,**params)
 
     # Plot B8 Pre- vs Post-Melt (Subtracted)
@@ -421,7 +421,7 @@ if __name__ == "__main__":
          plot_cd_spectra(parsed_data["B8_Subtracted"]['data'], sample_name="Sample B8 Pre-Melt",
                         overlay_df=parsed_data["B8_post_melt_Subtracted"]['data'], overlay_label="B8 Post-Melt",
                         protein_concentration_uM=params_df.loc["B8", "cd_sample_molar_conc"]*10**6, num_residues=params_df.loc["B8", "sequence_length"], path_length_mm=params_df.loc["B8", "cd_path_length_mm"], save_dir=output_dir,**params,
-                        title="CD Spectra Comparison (Blank Subtracted)")
+                        title="CD Spectra Comparison")
 
     # Plot B8 Melting Curve (Heating vs Cooling) - Using original (non-subtracted) data
     # Melting curve baseline drift is often less critical than spectral baseline
